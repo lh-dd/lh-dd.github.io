@@ -25,7 +25,6 @@ navigation:
   
 external:                  # see http://fontawesome.com/icons
   - {title: Mail, icon: envelope, url: "/contact/"}
-  - {title: Subscribe, icon: rss, url: "/feed.xml"}
 
 bico:
   - {title: Bico, icon: bicon, url: ""}
