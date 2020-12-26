@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<title>Contact | LH-DEV</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="LH-DEV">
+<link rel="canonical" href="http://45.14.148.159:4000/contact/">
+
+<link rel="stylesheet" href="/assets/css/index.css">
+
+<link rel="stylesheet" href="/assets/css/classes.css">
+<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="LH-DEV">
+
+
+
+
+
+
+
+<header>
+  <a href="/" class="title">LH-DEV</a>
+  <nav><a aria-label="Buy" href="/" ><span aria-hidden="true">Buy</span></a><a aria-label="Tools" href="/tools/" ><span aria-hidden="true">Tools</span></a><a aria-label="Setup Guide" href="/setupguide/" ><span aria-hidden="true">Setup Guide</span></a><a aria-label="Test Server" href="/testserver/" ><span aria-hidden="true">Test Server</span></a><a aria-label="Source Edits" href="/sourceedits/" ><span aria-hidden="true">Source Edits</span></a><a aria-label="Contact" href="/contact/" class="selected"><span aria-hidden="true">Contact</span></a></nav>
+
+</header>
+
+<article>
+  <header><h1><a href="/contact/">Contact</a></h1></header>
+  
+<div>
+<p><strong>Server compile:</strong></p>
+<pre><code>
+Install the following to C: (they can be found in "lh-dev.net_redist.rar")
+
+Visual Studio 2010
+boost_1_61_0-msvc-10.0-32.exe
+mysql-5.5.38-win32.msi
+
+Extract the client, server and library source code from "lh-dev.net_client-server-compile.rar" to:
+
+C:\lhserver_libs
+C:\lhserver_source
+C:\lhclient_source
+
+First we need to compile the libraries for include.
+
+With Visual studio 2010 open C:\lhserver_libs\jsoncpp-src-0.6.0-rc2\jsoncpp-src-0.6.0-rc2\makefiles\vs71\lib_json.vcxproj
+
+At the top click Build &gt; Build Solution
+
+Next, with Visual studio 2010 open C:\lhserver_libs\log4cxx_vs2010\log4cxx_vs2010\apache-log4cxx-0.10.0\projects\log4cxx.vcxproj
+
+At the top click Build &gt; Build Solution
+
+Next we can compile the server. With Visual studio 2010 open and build the following, make sure to compile Util first.
+
+C:\lhserver_source\Util\Util.vcxproj
+
+C:\lhserver_source\PacketSniffing\PacketSniffing.vcxproj
+
+C:\lhserver_source\new_messenger\new_messenger.vcxproj
+
+C:\lhserver_source\Helper\Helper.vcxproj
+
+C:\lhserver_source\Connect\Connect.vcxproj
+
+C:\lhserver_source\Laghaim\Laghaim.vcxproj
+
+Compiled server executables can be found in C:\Laghaimresult\ ready to move to the servers /bin/ folder.
+</code></pre>
+<p><strong>Client compile:</strong></p>
+<pre><code>With Visual studio 2010 open C:\lhclient_source\dev\Laghaim_Client\Laghaim_2010.vcxproj
+
+At the top click Build &gt; Build Solution
+
+Compiled client executable can be found in C:\lhclient_source\dev\Laghaim_Client\bin
+Rename KP_Release_Game.exe to Game.exe and replace in Clean_Client folder.
+</code></pre>
+<p><strong>Video compile guide:</strong></p>
+<figure>
+<div><iframe title="lh-dev.net Client &amp; Server compile." src="https://www.youtube.com/embed/hRtOMf3n4NE?feature=oembed" width="640" height="360" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+</figure>
+<p><strong>Launcher compile:</strong></p>
+<pre><code>Extract the launcher source folder from "lh-dev.net_launcher_source.rar" to:
+
+C:/launcher_source
+
+With Visual Studio 2010 open C:\launcher_source\LH_Launcher_KR\Laghaim.vcxproj
+
+Set the webserver address for update in the UrlFile.h source.
+
+#	define LH_CONNECT_URL			"https://www.website.com/update3/"
+#	define LH_INFO_URL			"https://www.website.com/update3/launcher/"
+
+At the top click Build &gt; Build Solution
+
+Compiled launcher excutable can be found in C:\launcher_source\bin\
+
+Rename Laghaim2011_KR.exe to Launcher.exe and place inside client folder.</code></pre>
+<p><strong>Optional source code edits:</strong></p>
+<p><strong>Client:</strong></p>
+<p>Enable launching Game.exe directly without using a launcher.</p>
+<pre><code>/*if (strlen(strCmdLine) <= 0)
+	{
+		MessageBox(NULL, "This Program Cannot Be Excuted Solely", "Error!!!", MB_OK);
+		return 0;
+	}*/</code></pre>
+<p>Update server version number to block old game.exe from connecting.</p>
+<pre><code>Config.h Line 18
+
+#define PACKET_VER	3004	// Change 3004 to a different value
+
+You will also need to edit the "CLIENT_VERSION" value to match in the servers /config/config.json</code></pre>
+<p>Edit the value required for the GM file config.ini2</p>
+<pre><code>main.cpp Line 4195
+
+		if (res == 15)	// Change 15 to a different value
+
+You can also disable the config.ini2 file and use a seperate .exe for a GM User.
+
+main.cpp Line 4195
+
+Replace
+
+		if (res == 15)
+		{
+			g_dev_client = true;
+			g_bAdmin = TRUE;
+		}
+
+With
+
+		if (res == 15)
+		{
+			g_bAdmin = FALSE;
+		}</code></pre>
+<p><strong>Server:</strong></p>
+<pre><code>updating guide, check back later.</code></pre>
+</div>
+
+</article>
+
+
+
+<footer>
+  <div>LH-DEV</div>
+  <nav><a aria-label="Mail" href="/contact/" class="selected"><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#envelope"></use></svg></a><a aria-label="Subscribe" href="/feed.xml" ><svg aria-hidden="true" class="icon"><use xlink:href="/assets/fontawesome/icons.svg#rss"></use></svg></a></nav>
+
+</footer>
+
+
+</html>
+
+
