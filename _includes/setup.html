@@ -1,0 +1,77 @@
+<div>
+<div><main>
+<article>
+<div>
+<p>The server is cross-platform meaning it will run/compile on Windows or Linux and are exactly the same.</p>
+<p><strong>Windows Setup:</strong></p>
+<pre><code>Requirements: Xampp / mysql server
+
+Create and import databases:
+
+kor_ndev_neogeo_data
+kor_ndev_neogeo_user
+kor_ndev_neogeo_event
+kor_ndev_neogeo_char
+neogeo_web (website game admin panel)</code></pre>
+<p>Server and website Video setup guide:</p>
+<figure>
+<div><iframe title="Server and Website Setup" src="https://www.youtube.com/embed/UFSudHmYeFE?feature=oembed" width="640" height="360" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+</figure>
+<p><strong>Linux (Centos 7/Ubuntu):</strong></p>
+<pre><code>Requires installing the following prerequisite to run:
+
+&gt; yum update
+&gt; yum install glibc.i686
+yum install compat-libstdc++-33.i686
+yum install libstdc++.i686
+rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-1.el7.nux.noarch.rpm
+yum install compat-expat1-1.95.8-16.el7.nux.i686
+yum install zlib-1.2.7-18.el7.i686
+yum install gdb
+
+Mariadb/phpmyadmin/httpd:
+
+yum install httpd
+yum install mariadb-server mariadb
+yum install php php-mysql
+yum install phpmyadmin
+
+systemctl start mariadb
+systemctl start httpd
+systemctl enable httpd
+systemctl enable mariadb
+mysql_secure_installation
+
+mysql -u root -p
+CREATE DATABASE kor_ndev_neogeo_user;
+CREATE DATABASE kor_ndev_neogeo_char;
+CREATE DATABASE kor_ndev_neogeo_event;
+CREATE DATABASE kor_ndev_neogeo_data;
+CREATE DATABASE neogeo_web;
+
+use kor_ndev_neogeo_data;
+source /home/Desktop/kor_ndev_neogeo_data.sql
+use kor_ndev_neogeo_char;
+source /home/Desktop/kor_ndev_neogeo_char.sql
+use kor_ndev_neogeo_event;
+source /home/Desktop/kor_ndev_neogeo_event.sql
+use kor_ndev_neogeo_user;
+source /home/Desktop/kor_ndev_neogeo_user.sql
+use neogeo_web;
+source /home/Desktop/neogeo_web.sql
+
+Check config in /config/ config.json, messenger_config.json, packet_sniffing.json
+
+Check ports are opened in firewall:
+TCP: 4021,4001,4030,4003,4004,4005,4006,4007,4008,4009,4010,4032,4033,4022,4023,4024,4025,4026,4027,4028,4034,4029,4031,4002,4035,4036
+Keep port 4011 Closed, unless you have generated a new kisa256 seed.
+
+Check you have permission to run the server scripts or change permission with:
+chmod 755 * -R
+./serverrestart.sh
+
+If there&rsquo;s any problems running the server you will see it in the log files /log/</code></pre>
+</div>
+</article>
+</main></div>
+</div>
