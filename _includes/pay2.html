@@ -4,7 +4,7 @@
 <div>
 <p>Thank you. Your order has been received.</p>
 <ul>
-<li>Date: <strong>{{ site.time | date: '%B %d, %Y' }}</strong></li>
+<li>Date: <strong><script>document.write(new Date().toDateString());</script></strong></li>
 <li>Total: <strong><bdi>$200.00</bdi></strong></li>
 <li>Payment method: <strong>Pay with cryptocurrency</strong></li>
 </ul>
