@@ -134,8 +134,120 @@ With
 		{
 			g_bAdmin = FALSE;
 		}</code></pre>
+<p>Add Custom Map S4</p>
+<p>Add S3 and S4 to start zone warp list</p>
+<p><strong>Client:</strong></p>
+<pre><code>
+	ControlGate.cpp 
+	
+	+ #Line 104
+	
+		else if (nCurWorldNum == WORLD_START)
+		{
+			m_GateList->AddString(G_STRING(IDS_GATE_LOST_REALM)); // 0
+
+			if(CheckUpdateVersionID(IDS_GATE_SHAILON))
+				m_GateList->AddString(G_STRING(IDS_GATE_SHAILON));		// 3
+
+			if(CheckUpdateVersionID(IDS_MAP_PHAROS))
+				m_GateList->AddString(G_STRING(IDS_MAP_PHAROS));  //6
+
+			if(CheckUpdateVersionID(IDS_GATE_WHITEHORN))
+				m_GateList->AddString(G_STRING(IDS_GATE_WHITEHORN)); // 7
+			
+			if(CheckUpdateVersionID(IDS_LHSTRING1896))
+				m_GateList->AddString(G_STRING(IDS_LHSTRING1896));	// Added S3 to Start Zone warp
+
+			if(CheckUpdateVersionID(IDS_LHSTRING1897))
+				m_GateList->AddString(G_STRING(IDS_LHSTRING1897));	// Added S4 to Start Zone warp
+		}
+		
+	+ #Line 856
+	
+		else if (pCMyApp->m_nCurWorldIdx == WORLD_START)
+		{
+			if(sel == 0) //샤일론 필드
+				pCMyApp->m_pUIMgr->PrepareChangeWorld(TRUE, WORLD_FIELD, sel);
+			else if(sel == 1) //샤일론 필드
+				pCMyApp->m_pUIMgr->PrepareChangeWorld(TRUE, WORLD_GUILD, 0);
+			else if(sel == 2)	// 천공의성
+				pCMyApp->m_pUIMgr->PrepareChangeWorld(TRUE, WORLD_SKY, 0);
+			else if( sel == 3 )	// Great white horn
+				pCMyApp->m_pUIMgr->PrepareChangeWorld(TRUE, WORLD_WHITEHORN, 0);
+			else if( sel == 4 )	// Added S3 to Start zone warp
+				pCMyApp->m_pUIMgr->PrepareChangeWorld(TRUE, WORLD_FORLORN_S3, 0);
+			else if( sel == 5 )	// Added S4 to Start zone warp
+				pCMyApp->m_pUIMgr->PrepareChangeWorld(TRUE, WORLD_FORLORN_S4, 0);
+
+		}
+</code></pre>
 <p><strong>Server:</strong></p>
-<pre><code>updating guide, check back later.</code></pre>
+<pre><code>
+	laghaim/config.h 
+	
+	+ #Line 831
+	
+		#define ZONE24_RePlay_X				12330,12350		// Added S4 spawn location
+		#define ZONE24_RePlay_Z				5027,5050		// Added S4 spawn location
+		
+	laghaim/DBProcess_ConMenu.cpp
+	
+	+ #Line 1074
+	
+		case ZONE_24:		// Added S4 spawn location
+			{
+				GET_X(pChar) = GetRandom( ZONE24_RePlay_X );
+				GET_Z(pChar) = GetRandom( ZONE24_RePlay_Z );
+			}
+			break;
+			
+	laghaim/World.cpp
+	
+	+ #Line 184
+	
+		else if( a_WorldNum == ZONE_24)	// Change FORLORN_ZONE03_ATT to FORLORN_ZONE04_ATT
+		{
+			nprintf(DataFileName, sizeof(DataFileName) - 1, "%s%s", a_ServerPath, FORLORN_ZONE04_ATT_DATA_FILE);
+		}
+	
+	+ #Line 7361
+	
+		case ZONE_23:
+			GET_X(ch) = GetRandom( ZONE23_RePlay_X );
+			GET_Z(ch) = GetRandom( ZONE23_RePlay_Z);
+			break;
+	
+		case ZONE_24:		// Added S4 Spawn location
+			GET_X(ch) = GetRandom( ZONE24_RePlay_X );
+			GET_Z(ch) = GetRandom( ZONE24_RePlay_Z);
+			break;
+		}
+	
+	laghaim/Zone.cpp
+	
+	+ #Line 82
+	
+		if (a_WorldNum == ZONE_DISPOSAL_PLANT)
+		{
+			m_ZoneNpc[index].m_PosZ = z * 10;
+		}
+		if (a_WorldNum == ZONE_24)	// S4 set map size for npc spawn
+		{
+			m_ZoneNpc[index].m_PosZ = (WORLD_ATT_SIZE - z) * 10;
+		}
+	
+	laghaim/cmd.cpp
+	
+	+ #Line 13542
+	
+		case ZONE_23:
+		case ZONE_24:	// Added case for S4
+		
+	laghaim/LagHaim.cpp
+	
+	+ #Line 248
+	
+		a_WorldNum == ZONE_22			|| a_WorldNum == ZONE_23		|| a_WorldNum == ZONE_24	// Added S4 npc minimap compass</code></pre>
 </div>
 
 </article>
