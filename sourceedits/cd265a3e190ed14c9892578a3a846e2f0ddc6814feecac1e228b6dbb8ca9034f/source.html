@@ -251,7 +251,7 @@ With
 		
 <p><strong>Linux Optional Changes:</strong></p>
 <p><strong>Server:</strong></p>
-<p>The server monitoring uses more memory than the gameserver itself, we can disable it and instead make a cron job to automatically restart the server daily.</p>
+<p>The server monitoring uses more memory than the gameserver itself, we can disable it and instead schedule a cron job to automatically restart the server daily.</p>
 <pre><code>
 crontab to restart server daily.
 	1 22 *  *  *     cd /home/laghaim && ./serverrestart.sh > /dev/null 2>&1
