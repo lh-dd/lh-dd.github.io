@@ -248,6 +248,30 @@ With
 	+ #Line 248
 	
 		a_WorldNum == ZONE_22			|| a_WorldNum == ZONE_23		|| a_WorldNum == ZONE_24	// Added S4 npc minimap compass</code></pre>
+		
+<p><strong>Linux Optional Changes:</strong></p>
+<p><strong>Server:</strong></p>
+<p>The server monitoring uses more memory than the gameserver itself, we can disable it and instead make a cron job to automatically restart the server daily.</p>
+<p>The server monitoring uses more memory than the gameserver itself, we can disable it and instead make a cron job to automatically restart the server daily.</p>
+<pre><code>
+crontab to restart server daily.
+	1 22 *  *  *     cd /home/laghaim && ./serverrestart.sh > /dev/null 2>&1
+	
+Edit serverrestart.sh
+
+Change sleep to 10
+
+Change ch0_start.sh to ch0_start_no_gdb.sh
+
+Create ch0_start_no_gdb.sh in the laghaim folder and use this format for each zone:
+
+nohup ./LhDebug  1 7 660 whitehorn_ch0 1> /dev/null 2>&1 &
+nohup ./LhDebug  1 8 660 white_dungeon_ch0 1> /dev/null 2>&1 &
+nohup ./LhDebug  1 4 660 start_ch0 1> /dev/null 2>&1 &
+
+
+	</code></pre>
+<p>Update server version number to block old game.exe from connecting.</p>
 </div>
 
 </article>
